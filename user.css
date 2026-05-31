@@ -6536,3 +6536,157 @@ button[aria-label="Włącz tryb pełnoekranowy"] {
     margin: 0px !important;
     pointer-events: none !important;
 }
+
+/*----------
+SMOOTH LYRICS
+----------*/
+
+:root {
+  --lyrics-text-direction: left;
+}
+
+.Root__lyrics-cinema {
+  grid-area: main-view;
+}
+
+.lyrics-lyrics-background {
+  visibility: hidden !important;
+}
+
+.lyrics-lyrics-container {
+  --lyrics-color-active: rgb(255, 255, 255) !important;
+  --lyrics-color-inactive: rgba(255, 255, 255, 0.3) !important;
+  --lyrics-color-passed: rgba(255, 255, 255, 0.5) !important;
+  --lyrics-color-messaging: rgba(255, 255, 255, 0.45) !important;
+  
+  padding-right: 15% !important;
+  box-sizing: border-box !important;
+}
+
+.lyrics-lyricsContent-lyric {
+  margin: 0.5rem 0;
+  padding: 0 5px;
+  transform: scale(1);
+  text-shadow: -1px 3px 20px rgb(0 0 0 / 5%);
+  color: rgb(0 0 0 / 95%);
+  
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  max-width: 100% !important;
+  
+  transition: text-shadow 600ms cubic-bezier(0.25, 1, 0.5, 1), 
+              color 600ms cubic-bezier(0.25, 1, 0.5, 1),
+              opacity 600ms cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+.lyrics-lyricsContent-text {
+  transform-origin: var(--lyrics-text-direction);
+  display: inline-block;
+  transition: transform 600ms cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+.C3pBU1DsOUJJOAv89ZFT {
+  color: var(--lyrics-color-passed) !important;
+}
+
+.lyrics-lyricsContent-lyric:hover {
+  color: var(--lyrics-color-active) !important;
+}
+
+.lyrics-lyricsContent-isInteractive .lyrics-lyricsContent-text:active {
+  transform: scale(0.95);
+}
+
+.lyrics-lyricsContent-active {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  max-width: 100% !important;
+}
+
+.lyrics-lyricsContent-active .lyrics-lyricsContent-text {
+  transform: scale(1.06);
+}
+
+.main-nowPlayingView-lyricsContent > .lyrics-lyricsContent-lyric {
+  max-width: 100% !important;
+  white-space: normal !important;
+}
+
+.lyrics-lyricsContainer-LyricsBackground {
+  visibility: hidden !important;
+}
+
+.lyrics-lyricsContainer-LyricsContainer {
+  --lyrics-color-active: white !important;
+  --lyrics-color-inactive: rgb(255 255 255 / 30%) !important;
+  overflow-x: hidden !important;
+  padding-right: 15% !important; 
+  box-sizing: border-box !important;
+}
+
+.lyrics-lyricsContainer-LyricsLine {
+  text-shadow: none;
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  max-width: 100% !important;
+  transition: transform 600ms cubic-bezier(0.25, 1, 0.5, 1), 
+              color 600ms cubic-bezier(0.25, 1, 0.5, 1), 
+              opacity 600ms cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+.lyrics-lyricsContainer-SyncedLyrics .lyrics-lyricsContainer-LyricsLine {
+  transition-property: transform, color, opacity, text-shadow !important;
+}
+
+.lyrics-lyricsContainer-Karaoke-WordActive,
+.lyrics-lyricsContainer-SyncedLyrics .lyrics-lyricsContainer-LyricsLine-active {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.lyrics-lyricsContainer-LyricsUnavailableMessage {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.lyrics-lyricsContainer-Provider {
+  background: none !important;
+}
+
+.Root__lyrics-cinema [data-overlayscrollbars-viewport],
+.lyrics-lyricsContainer-LyricsContainer,
+.lyrics-lyrics-container,
+.FUYNhisXTCmbzt9IDxnT,
+.lyrics-lyricsContent-lyricContainer {
+  overflow-x: hidden !important;
+  overflow-y: auto !important; 
+  isolation: isolate !important;
+  
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 1) 20%,
+    rgba(0, 0, 0, 1) 80%,
+    transparent 100%
+  ) !important;
+  
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 1) 20%,
+    rgba(0, 0, 0, 1) 80%,
+    transparent 100%
+  ) !important;
+}
+
+.Root__lyrics-cinema [data-overlayscrollbars-viewport]::-webkit-scrollbar,
+.lyrics-lyricsContainer-LyricsContainer::-webkit-scrollbar,
+.lyrics-lyrics-container::-webkit-scrollbar,
+.lyrics-lyricsContent-lyricContainer::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+}
+
+.lyrics-lyricsContent-lyricContainer > div,
+.lyrics-lyricsContainer-SyncedLyrics {
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
