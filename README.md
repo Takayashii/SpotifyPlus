@@ -14,6 +14,7 @@ Spotify+ transforms your boring Spotify into a luxury feeling app, It offers Ad-
 
 ## 📸 Preview
 ![Preview 1](preview.png)
+![Preview 2](preview2.png)
 
 ---
 
@@ -31,6 +32,11 @@ Spotify+ transforms your boring Spotify into a luxury feeling app, It offers Ad-
 ---
 
 ## 🚀 Installation
+
+### Make sure that you have Spicetify Installed!
+1. Open `Powershell` **NOT** as Administrator.
+2. Run the command: `iwr -useb https://raw.githubusercontent.com/spicetify/cli/main/install.ps1 | iex`
+3. Type `Y`/`N` to choose to install Spicetify Market.
 
 ### Option A: Automated Installation (Recommended)
 1. Download the `install.bat` script from this repository.
