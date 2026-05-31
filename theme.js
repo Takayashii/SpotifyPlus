@@ -2228,7 +2228,7 @@
   function findOpenProfileMenu() {
     return Array.from(document.querySelectorAll('.main-contextMenu-menu, [role="menu"], [data-radix-menu-content]')).find(menu => {
       const text = (menu.textContent || '').toLowerCase();
-      return text.includes('ambientglass settings') || text.includes('account') || text.includes('log out') || text.includes('profile');
+      return text.includes('spotifyplus settings') || text.includes('account') || text.includes('log out') || text.includes('profile');
     });
   }
 
@@ -3721,7 +3721,16 @@
             </div>
 
             <div class="ag-tab-content" id="tab-layout">
-              <div class="ag-setting-item ag-layout-change-setting"><span class="ag-setting-label"><label>Move AmbientGlass Layout</label><span class="ag-note-sticker" aria-label="Note">BETA</span></span><button id="ag-change-layout" type="button">Change</button></div>
+              <div class="ag-setting-item ag-layout-change-setting"><span class="ag-setting-label"><label>Move SpotifyPlus Layout</label><span class="ag-note-sticker" aria-label="Note">BETA</span></span><button id="ag-change-layout" type="button">Change</button></div>
+              
+              <div class="ag-setting-item">
+                <span class="ag-setting-label"><label>Toggle Music Sidebar</label></span>
+                <label class="ag-switch">
+                  <input type="checkbox" id="ag-sidebar-toggle-checkbox" ${localStorage.getItem('ag-sidebar-brutal-disabled') === 'true' ? '' : 'checked'}>
+                  <span class="ag-switch-slider"></span>
+                </label>
+              </div>
+
               <div class="ag-setting-item"><label>Reset Saved Layout</label><button id="ag-reset-layout" type="button">Reset</button></div>
             </div>
 
@@ -6682,3 +6691,29 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
 
 })();
 
+// Sidebar Synchro
+function initAgSidebarState() {
+    if (localStorage.getItem('ag-sidebar-brutal-disabled') === 'true') {
+        document.body.classList.add("ag-hide-only-sidebar");
+    } else {
+        document.body.classList.remove("ag-hide-only-sidebar");
+    }
+}
+initAgSidebarState();
+
+document.addEventListener("change", (e) => {
+    if (e.target && e.target.id === "ag-sidebar-toggle-checkbox") {
+        if (e.target.checked) {
+            localStorage.setItem('ag-sidebar-brutal-disabled', 'false');
+            document.body.classList.remove("ag-hide-only-sidebar");
+            
+            const nativeBtn = document.querySelector('.main-topBar-right [aria-label="Now playing view"]');
+            if (nativeBtn && nativeBtn.getAttribute("aria-checked") === "false") {
+                nativeBtn.click();
+            }
+        } else {
+            localStorage.setItem('ag-sidebar-brutal-disabled', 'true');
+            document.body.classList.add("ag-hide-only-sidebar");
+        }
+    }
+});
