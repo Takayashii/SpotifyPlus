@@ -13,8 +13,9 @@ Spotify+ transforms your boring Spotify into a luxury feeling app, It offers Ad-
 ---
 
 ## 📸 Preview
-![Preview 1](preview.png)
+![Preview 1](preview1.png)
 ![Preview 2](preview2.png)
+![Preview 2](preview3.png)
 
 ---
 
