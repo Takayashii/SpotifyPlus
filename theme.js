@@ -5,6 +5,13 @@
 // Safety: 60px margin.
 // NavFix: colon-to-slash conversion added by Antigravity.
 
+if (!window.Dexie) {
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/dexie/dist/dexie.js';
+    script.async = false; 
+    document.head.appendChild(script);
+}
+
 (function AmbientGlass() {
   'use strict';
   if (!Spicetify?.Player || !Spicetify?.Platform) {
@@ -86,7 +93,7 @@
       .ag-dock-hitbox:hover {
         background: rgba(255,255,255,0.15) !important;
         border-color: rgba(255,255,255,0.2) !important;
-        box-shadow: 0 0 20px rgba(123,95,219,0.3);
+        box-shadow: 0 0 20px rgba(95, 184, 219, 0.3);
       }
       .ag-dock-hitbox svg { width: 20px; height: 20px; color: #fff; opacity: 0.82; }
       .ag-dock-hitbox img { width: 34px !important; height: 34px !important; border-radius: 50% !important; object-fit: cover !important; }
@@ -3220,7 +3227,7 @@
       #ag-layout-toolbar { position: fixed; top: 56px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; padding: 8px; border-radius: 8px; background: rgba(10, 8, 22, 0.9); border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 12px 40px rgba(0,0,0,0.45); backdrop-filter: blur(20px); pointer-events: auto; }
       #ag-layout-toolbar button { min-height: 32px; padding: 0 14px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); color: #fff; background: rgba(255,255,255,0.08); font-weight: 700; }
       #ag-layout-save { background: var(--ag-accent-main, #7b5fdb) !important; }
-      .ag-layout-handle { position: fixed; z-index: 99999; display: flex; align-items: center; justify-content: center; min-width: 96px; height: 28px; padding: 0 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.22); color: #fff; background: rgba(123,95,219,0.78); box-shadow: 0 8px 24px rgba(0,0,0,0.35); font-size: 12px; font-weight: 800; cursor: grab; pointer-events: auto; user-select: none; }
+      .ag-layout-handle { position: fixed; z-index: 99999; display: flex; align-items: center; justify-content: center; min-width: 96px; height: 28px; padding: 0 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.22); color: #fff; background: rgba(95, 194, 219, 0.78); box-shadow: 0 8px 24px rgba(0,0,0,0.35); font-size: 12px; font-weight: 800; cursor: grab; pointer-events: auto; user-select: none; }
       .ag-layout-handle:active { cursor: grabbing; }
       .ag-layout-ghost {
         position: fixed;
@@ -3229,8 +3236,8 @@
         cursor: grab;
         border: 1px dashed rgba(255,255,255,0.32);
         border-radius: 12px;
-        background: rgba(123,95,219,0.08);
-        box-shadow: inset 0 0 0 1px rgba(123,95,219,0.16), 0 8px 24px rgba(0,0,0,0.18);
+        background: rgba(95, 194, 219, 0.08);
+        box-shadow: inset 0 0 0 1px rgba(95, 180, 219, 0.16), 0 8px 24px rgba(0,0,0,0.18);
       }
       .ag-layout-ghost:active { cursor: grabbing; }
       body.ag-layout-dragging .ag-layout-handle,
@@ -3252,7 +3259,7 @@
         transform: translateX(-50%);
         padding: 4px 10px;
         border-radius: 999px;
-        background: rgba(123,95,219,0.78);
+        background: rgba(95, 174, 219, 0.78);
         color: #fff;
         font-size: 11px;
         font-weight: 800;
@@ -3476,7 +3483,7 @@
 
   const DEFAULTS = {
     glow: 'rgb(53, 205, 243)', s1: 'rgb(65, 148, 164)', s2: 'rgb(38, 61, 80)', accent: 'rgb(83, 192, 238)',
-    home: '#4b9eff', liked: '#ff4b4b', albums: '#4b9eff', playlists: '#4b9eff', artists: '#4b9eff',
+    home: '#4b9eff', liked: '#4b9eff', albums: '#4b9eff', playlists: '#4b9eff', artists: '#4b9eff',
     btn_bg: 'rgba(8, 27, 38, 0.65)', btn_icon: '#f0f0ff', blobs: '#5fc2db',
     now_mode: 'colored', now_gradient_enabled: 'false', now_color: 'rgb(22, 36, 47)', now_color_2: '#3d677a', now_gradient_angle: '135', now_gradient_position: '50', now_gradient_blend: '36', now_brightness: '72', now_frost: '52',
     now_width: '860', now_height: '80', now_radius: '40', cover_spin: 'false',
@@ -3543,7 +3550,7 @@
   const ONBOARDING_SEEN_KEY = 'ag-onboarding-seen';
   const ONBOARDING_SLIDES = [
     {
-      kicker: 'Credit: EROX',
+      kicker: 'About',
       title: 'Welcome to Spotify+',
       text: 'The Ultimate Spotify Experience, glass layers with floating controls, and performance mode for weaker PCs.'
     },
@@ -3565,7 +3572,7 @@
     {
       kicker: 'Profile Dock',
       title: 'Settings and addons',
-      text: 'Hover your profile picture to reveal the Spotify+ dock. The first button below it opens Settings; Marketplace, Listening Stats, and other installed addons sit below.'
+      text: 'Hover your profile picture to reveal the Spotify+ dock. The first button below it opens Settings; Marketplace, and other installed addons sit below.'
     }
   ];
 
@@ -3990,7 +3997,7 @@
       ? `color-mix(in srgb, ${nowColor2} 36%, transparent)`
       : nowMode === 'colored'
         ? `color-mix(in srgb, ${nowColor} 42%, transparent)`
-      : 'var(--ag-surface-tint-soft, rgba(123,95,219,0.18))');
+      : 'var(--ag-surface-tint-soft, rgba(95, 205, 219, 0.18))');
     
     root.style.setProperty('--ag-col-home', home);
     root.style.setProperty('--ag-col-liked', liked);
@@ -4180,7 +4187,7 @@
         padding: 0 14px !important;
         border-radius: 7px !important;
         border: 1px solid rgba(255,255,255,0.12) !important;
-        background: rgba(123,95,219,0.72) !important;
+        background: color-mix(in srgb, var(--ag-custom-accent) 72%, transparent) !important;
         color: #fff !important;
         font-weight: 800 !important;
         box-shadow: 0 8px 18px rgba(0,0,0,0.25) !important;
@@ -4932,7 +4939,7 @@
 })();
 
 /* ==========================================
-   SEKCJA ADBLOCKIFY (BLOKADA REKLAM)
+   ADBLOCKIFY
    ========================================== */
 {
   const loadWebpack=()=>{try{const o=window.webpackChunkclient_web.push([[Symbol()],{},n=>n]),s=Object.keys(o.m).map(n=>o(n)),i=s.filter(n=>typeof n=="object").flatMap(n=>{try{return Object.values(n)}catch{}}),r=new Set(Object.values(o.m)),c=i.flatMap(n=>typeof n=="function"?[n]:typeof n=="object"&&n?Object.values(n).filter(p=>typeof p=="function"&&!r.has(p)):[]);return{cache:s,functionModules:c}}catch(o){return console.error("adblockify: Failed to load webpack",o),{cache:[],functionModules:[]}}},getSettingsClient=(o,s=[],i={})=>{try{const r=o.find(c=>c?.settingsClient)?.settingsClient;if(!r){const c=s.find(n=>n?.SERVICE_ID==="spotify.ads.esperanto.settings.proto.Settings"||n?.SERVICE_ID==="spotify.ads.esperanto.proto.Settings");return new c(i)}return r}catch(r){return console.error("adblockify: Failed to get ads settings client",r),null}},getSlotsClient=(o,s)=>{try{const i=o.find(r=>r.SERVICE_ID==="spotify.ads.esperanto.slots.proto.Slots"||r.SERVICE_ID==="spotify.ads.esperanto.proto.Slots");return new i(s)}catch(i){return console.error("adblockify: Failed to get slots client",i),null}},getTestingClient=(o,s)=>{try{const i=o.find(r=>r.SERVICE_ID==="spotify.ads.esperanto.testing.proto.Testing"||r.SERVICE_ID==="spotify.ads.esperanto.proto.Testing");return new i(s)}catch(i){return console.error("adblockify: Failed to get testing client",i),null}},adblockifyMap=new Map,retryCounter=(o,s)=>{if(adblockifyMap.has(o)||adblockifyMap.set(o,{count:0}),s==="increment")adblockifyMap.get(o).count++;else if(s==="clear")adblockifyMap.delete(o);else if(s==="get")return adblockifyMap.get(o)?.count};(async function o(){await new Promise(e=>Spicetify.Events.platformLoaded.on(e)),await new Promise(e=>Spicetify.Events.webpackLoaded.on(e));const s=loadWebpack(),{Platform:i,Locale:r}=Spicetify,{AdManagers:c}=i;if(!c?.audio||Object.keys(c).length===0){setTimeout(o,100);return}const{audio:n}=c,{UserAPI:p}=i,u=p._product_state||p._product_state_service||i?.ProductStateAPI?.productStateApi,y=Spicetify.Platform.version.split(".").map(e=>Number.parseInt(e));if(!Spicetify?.CosmosAsync){setTimeout(o,100);return}const{CosmosAsync:b}=Spicetify;let f=[];const g=getSlotsClient(s.functionModules,u.transport);if(g)f=(await g.getSlots()).adSlots;else try{f=await b.get("sp://ads/v1/slots")}catch{setTimeout(o,100);return}const C=()=>{const e=document.createElement("style"),t=r.get("upgrade.tooltip.title");e.className="adblockify",e.innerHTML=`.ScclvBC0NsMgQLQC, .Mvhjv8IKLGjQx94MVOgP, .sl_aPp6GDg05ItSfmsS7, .sl_aPp6GDg05ItSfmsS7, .nHCJskDZVlmDhNNS9Ixv, .utUDWsORU96S7boXm2Aq, .cpBP3znf6dhHLA2dywjy, .G7JYBeU1c2QawLyFs5VK, .vYl1kgf1_R18FCmHgdw2, .vZkc6VwrFz0EjVBuHGmx, .iVAZDcTm1XGjxwKlQisz, ._I_1HMbDnNlNAaViEnbp, .xXj7eFQ8SoDKYXy6L3E1, .F68SsPm8lZFktQ1lWsQz, .MnW5SczTcbdFHxLZ_Z8j, .WiPggcPDzbwGxoxwLWFf, .ReyA3uE3K7oEz7PTTnAn, .x8e0kqJPS0bM4dVK7ESH, .gZ2Nla3mdRREDCwybK6X, .SChMe0Tert7lmc5jqH01, .AwF4EfqLOIJ2xO7CjHoX, .UlkNeRDFoia4UDWtrOr4, .k_RKSQxa2u5_6KmcOoSw, ._mWmycP_WIvMNQdKoAFb, .O3UuqEx6ibrxyOJIdpdg, .akCwgJVf4B4ep6KYwrk5, .bIA4qeTh_LSwQJuVxDzl, .ajr9pah2nj_5cXrAofU_, .gvn0k6QI7Yl_A0u46hKn, .obTnuSx7ZKIIY1_fwJhe, .IiLMLyxs074DwmEH4x5b, .RJjM91y1EBycwhT_wH59, .mxn5B5ceO2ksvMlI1bYz, .l8wtkGVi89_AsA3nXDSR, .Th1XPPdXMnxNCDrYsnwb, .SJMBltbXfqUiByDAkUN_, .Nayn_JfAUsSO0EFapLuY, .YqlFpeC9yMVhGmd84Gdo, .HksuyUyj1n3aTnB4nHLd, .DT8FJnRKoRVWo77CPQbQ, ._Cq69xKZBtHaaeMZXIdk, .main-leaderboardComponent-container, .sponsor-container, a.link-subtle.main-navBar-navBarLink.GKnnhbExo0U9l7Jz2rdc, button[title="${t}"], button[aria-label="${t}"], .main-topBar-UpgradeButton, .main-contextMenu-menuItem a[href^="https://www.spotify.com/premium/"], div[data-testid*="hpto"] {display: none !important;}`,document.head.appendChild(e)},I=async()=>{try{await u.putOverridesValues({pairs:{ads:"0",catalogue:"premium",product:"premium",type:"premium"}})}catch(e){console.error("adblockify: Failed inside `disableAds` function\n",e)}},S=async()=>{try{const{billboard:e,leaderboard:t,sponsoredPlaylist:a}=c,l=getTestingClient(s.functionModules,u.transport);if(l?l.addPlaytime({seconds:-1e11}):await b.post("sp://ads/v1/testing/playtime",{value:-1e11}),await n.disable(),n.isNewAdsNpvEnabled=!1,await e.disable(),await t?.disableLeaderboard(),await a.disable(),c?.inStreamApi){const{inStreamApi:d}=c;await d.disable()}if(c?.vto){const{vto:d}=c;await d.manager.disable(),d.isNewAdsNpvEnabled=!1}setTimeout(I,100)}catch(e){console.error("adblockify: Failed inside `configureAdManagers` function\n",e)}},k=async()=>{for(const e of f)E(e.slotId||e.slot_id),setTimeout(()=>m({adSlotEvent:{slotId:e.slotId||e.slot_id}}),50)},m=e=>{const t=e?.adSlotEvent?.slotId;try{const a=n?.inStreamApi?.adsCoreConnector;typeof a?.clearSlot=="function"&&a.clearSlot(t);const l=getSlotsClient(s.functionModules,u.transport);l&&l.clearAllAds({slotId:t}),w(t)}catch(a){if(console.error("adblockify: Failed inside `handleAdSlot` function. Retrying in 1 second...\n",a),retryCounter(t,"increment"),retryCounter(t,"get")>5){console.error(`adblockify: Failed inside \`handleAdSlot\` function for 5th time. Giving up...
@@ -4940,7 +4947,7 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
 }
  
 /* ==========================================
-   SEKCJA NO CONTROLS (UKRYWANIE PASKA TYTUŁU)
+   CONTROLS
    ========================================== */
 {
   (async function noControls() {
@@ -4954,7 +4961,7 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
       style.innerHTML = `
           html > body::after { display: none !important; }
           .Root__globalNav { padding-inline: 8px !important; }
-          .Titlebar { display: none !important; } /* Hide the titlebar completely */
+          .Titlebar { display: none !important; }
       `;
       document.head.appendChild(style);
 
@@ -5261,7 +5268,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
             flex-direction: column;
         }
 
-        /* Resize Handle at Top - Subtle */
         .resize-handle {
             height: 4px;
             cursor: ns-resize;
@@ -5272,7 +5278,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
             background: rgba(255, 255, 255, 0.05);
         }
 
-        /* Header - Draggable */
         .header {
             display: flex;
             align-items: center;
@@ -5327,7 +5332,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
             text-overflow: ellipsis;
         }
 
-        /* Header Buttons */
         .header-btns {
             display: flex;
             align-items: center;
@@ -5383,7 +5387,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
             display: none;
         }
 
-        /* Settings Panel - Full Overlay */
         .settings-panel {
             position: absolute;
             top: 0;
@@ -5520,7 +5523,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
             margin: 16px 0;
         }
 
-        /* Theme Button */
         .theme-btn {
             display: flex;
             align-items: center;
@@ -5743,7 +5745,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
             display: none;
         }
 
-        /* Lyrics Container */
         .lyrics-wrap {
             flex: 1 1 auto;
             overflow-y: auto;
@@ -5772,8 +5773,8 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
         }
 
         .lyrics-wrap {
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE/Edge */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
         }
 
         .lyric {
@@ -5801,7 +5802,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
             opacity: 0.4;
         }
 
-        /* No Lyrics / Loading */
         .status-msg {
             display: flex;
             flex-direction: column;
@@ -5842,7 +5842,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
             to { transform: rotate(360deg); }
         }
 
-        /* Footer */
         .footer {
             background: ${t.footerBg};
             border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -5852,7 +5851,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
             app-region: no-drag;
         }
 
-        /* Hide footer when all rows are collapsed */
         .footer:not(:has(.footer-row:not(.collapsed))) {
             display: none;
         }
@@ -5868,7 +5866,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
         }
 
         .footer-row.collapsed + .footer-row:not(.collapsed) {
-            /* No extra spacing when previous row is collapsed */
         }
 
         .footer-row:not(.collapsed) + .footer-row:not(.collapsed) {
@@ -5951,7 +5948,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
                 }
             } catch (e) {}
 
-            // Method 2: Platform Lyrics API
             if (Spicetify.Platform?.Lyrics) {
                 try {
                     const lyrics = await Spicetify.Platform.Lyrics.getLyrics(trackUri);
@@ -5967,7 +5963,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
                 } catch (e) {}
             }
 
-            // Method 3: Legacy endpoint
             try {
                 const altResponse = await Spicetify.CosmosAsync.get(
                     `wg://lyrics/v1/track/${trackId}?format=json&market=from_token`
@@ -5990,19 +5985,15 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
         }
     }
 
-    // ==================== PIP WINDOW CREATION ====================
     async function openPictureInPicture() {
-        // Close existing PiP window if open
         if (pipWindow && !pipWindow.closed) {
             pipWindow.close();
             pipWindow = null;
             return;
         }
 
-        // Reset track URI to force fresh lyrics load
         currentTrackUri = null;
 
-        // Check for Document Picture-in-Picture API (Chrome 116+)
         if ('documentPictureInPicture' in window) {
             try {
                 pipWindow = await window.documentPictureInPicture.requestWindow({
@@ -6017,7 +6008,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
             }
         }
 
-        // Fallback: Regular popup window
         try {
             const left = window.screen.width - CONFIG.pipWidth - 30;
             const top = 30;
@@ -6069,7 +6059,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
         const doc = win.document;
         const currentVolume = Math.round((Spicetify.Player.getVolume() || 0) * 100);
 
-        // Build the HTML
         doc.write(`<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6208,7 +6197,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
 </html>`);
         doc.close();
 
-        // Get elements
         const menuBtn = doc.getElementById('menuBtn');
         const settingsPanel = doc.getElementById('settingsPanel');
         const settingsClose = doc.getElementById('settingsClose');
@@ -6248,33 +6236,27 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
         const themeGrid = doc.getElementById('themeGrid');
         const closeBtn = doc.getElementById('closeBtn');
 
-        // Close miniplayer
         closeBtn.onclick = () => {
             win.close();
         };
 
-        // Settings panel toggle
         menuBtn.onclick = (e) => {
             e.stopPropagation();
             settingsPanel.classList.add('open');
         };
 
-        // Close settings panel
         settingsClose.onclick = () => {
             settingsPanel.classList.remove('open');
         };
 
-        // Open theme picker panel
         openThemePickerBtn.onclick = () => {
             themePicker.classList.add('open');
         };
 
-        // Close theme picker (back to settings)
         themePickerBack.onclick = () => {
             themePicker.classList.remove('open');
         };
 
-        // Theme selection
         themeGrid.onclick = (e) => {
             const themeItem = e.target.closest('.theme-item');
             if (themeItem) {
@@ -6283,26 +6265,21 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
                     currentTheme = newTheme;
                     localStorage.setItem('lyrics-overlay-theme', currentTheme);
                     
-                    // Update styles
                     themeStyles.textContent = generateStyles(currentTheme);
                     
-                    // Update theme button
                     currentThemeEmoji.textContent = THEMES[currentTheme].emoji;
                     currentThemeName.textContent = THEMES[currentTheme].name;
                     
-                    // Update active state
                     doc.querySelectorAll('.theme-item').forEach(item => {
                         item.classList.toggle('active', item.dataset.theme === currentTheme);
                     });
                     
-                    // Close picker after selection
                     themePicker.classList.remove('open');
                 }
             }
         };
 
 
-        // Toggle handlers
         toggleLyricsItem.onclick = () => {
             showLyrics = !showLyrics;
             toggleLyrics.classList.toggle('on', showLyrics);
@@ -6352,7 +6329,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
             localStorage.setItem('lyrics-overlay-showvol', showVolumeSlider);
         };
 
-        // Control handlers
         prevBtn.onclick = () => Spicetify.Player.back();
         playBtn.onclick = () => Spicetify.Player.togglePlay();
         nextBtn.onclick = () => Spicetify.Player.next();
@@ -6365,14 +6341,12 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
             Spicetify.Player.toggleHeart();
         };
 
-        // Update shuffle button state
         function updateShuffleState() {
             const isShuffled = Spicetify.Player.getShuffle();
             shuffleBtn.classList.toggle('shuffle-on', isShuffled);
         }
         updateShuffleState();
 
-        // Update like icon (filled vs outline)
         function updateLikeIcon(isLiked) {
             const likeIcon = doc.getElementById('likeIcon');
             if (!likeIcon) return;
@@ -6380,24 +6354,19 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
             likeBtn.classList.toggle('liked', isLiked);
             
             if (isLiked) {
-                // Filled heart
                 likeIcon.innerHTML = '<path d="M15.724 4.22A4.313 4.313 0 0 0 12.192.814a4.269 4.269 0 0 0-3.622 1.13.837.837 0 0 1-1.14 0 4.272 4.272 0 0 0-6.21 5.855l5.916 7.05a1.128 1.128 0 0 0 1.727 0l5.916-7.05a4.228 4.228 0 0 0 .945-3.577z"/>';
             } else {
-                // Outline heart
                 likeIcon.innerHTML = '<path d="M1.69 2A4.582 4.582 0 0 1 8 2.023 4.583 4.583 0 0 1 11.88.817h.002a4.618 4.618 0 0 1 3.782 3.65v.003a4.543 4.543 0 0 1-1.011 3.84L9.35 14.629a1.765 1.765 0 0 1-2.093.464 1.762 1.762 0 0 1-.605-.463L1.348 8.309A4.582 4.582 0 0 1 1.689 2zm3.158.252A3.082 3.082 0 0 0 2.49 7.337l.005.005L7.8 13.664a.264.264 0 0 0 .311.069.262.262 0 0 0 .09-.069l5.312-6.33a3.043 3.043 0 0 0 .68-2.573 3.118 3.118 0 0 0-2.551-2.463 3.079 3.079 0 0 0-2.612.816l-.007.007a1.501 1.501 0 0 1-2.045 0l-.009-.008a3.082 3.082 0 0 0-2.121-.861z"/>';
             }
         }
 
-        // Check and update like state
         function updateLikeState() {
             const isLiked = Spicetify.Player.getHeart();
             updateLikeIcon(isLiked);
         }
         
-        // Initial update
         updateLikeState();
 
-        // Font size handler
         fontSlider.oninput = (e) => {
             fontSize = parseInt(e.target.value);
             fontValue.textContent = `${fontSize}px`;
@@ -6405,7 +6374,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
             updatePipFontSize();
         };
 
-        // Volume handlers
         volumeSlider.oninput = (e) => {
             const vol = parseInt(e.target.value);
             Spicetify.Player.setVolume(vol / 100);
@@ -6413,7 +6381,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
             volumeIconWrap.innerHTML = getVolumeIconSvg(vol);
         };
 
-        // Click volume icon to mute/unmute
         volumeIconWrap.onclick = () => {
             const currentVol = Math.round((Spicetify.Player.getVolume() || 0) * 100);
             if (currentVol > 0) {
@@ -6431,7 +6398,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
             }
         };
 
-        // Lyrics click to seek
         lyricsContainer.onclick = (e) => {
             if (e.target.classList.contains('lyric')) {
                 const time = e.target.dataset.time;
@@ -6439,12 +6405,10 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
             }
         };
 
-        // Handle window close
         win.addEventListener('pagehide', () => {
             pipWindow = null;
         });
 
-        // Initial update - force load lyrics for current track
         async function initialLoad() {
             const track = Spicetify.Player.data?.item;
             if (track?.uri) {
@@ -6452,7 +6416,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
                 await loadLyrics(track.uri);
                 updatePipLikeState();
             } else {
-                // Retry after a short delay if track data not ready
                 setTimeout(initialLoad, 200);
             }
         }
@@ -6462,7 +6425,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
         startUpdateLoop();
     }
 
-    // ==================== PIP CONTENT UPDATES ====================
     function updatePipContent() {
         if (!pipWindow || pipWindow.closed) return;
 
@@ -6473,7 +6435,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
 
         const track = data.item;
 
-        // Update track info
         const titleEl = doc.getElementById('trackTitle');
         const artistEl = doc.getElementById('trackArtist');
         const albumArtEl = doc.getElementById('albumArt');
@@ -6485,13 +6446,10 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
             albumArtEl.src = imgUrl;
         }
 
-        // Update play button
         updatePipPlayButton();
 
-        // Update volume
         updatePipVolume();
 
-        // Check if track changed
         if (track.uri !== currentTrackUri) {
             currentTrackUri = track.uri;
             loadLyrics(track.uri);
@@ -6539,7 +6497,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
         
         if (!volumeSlider || !volumePercent || !volumeIconWrap) return;
 
-        // Only update if slider is not being dragged
         if (doc.activeElement !== volumeSlider) {
             const vol = Math.round((Spicetify.Player.getVolume() || 0) * 100);
             volumeSlider.value = vol;
@@ -6554,10 +6511,8 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
         const container = pipWindow.document.getElementById('lyricsContainer');
         if (!container) return;
 
-        // Show loading
         container.innerHTML = '<div class="status-msg"><div class="spinner"></div></div>';
 
-        // Fetch lyrics
         currentLyrics = await fetchLyrics(uri);
 
         if (!currentLyrics || !currentLyrics.lines?.length) {
@@ -6571,7 +6526,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
             return;
         }
 
-        // Render lyrics
         const lyricsHtml = currentLyrics.lines
             .filter(line => line.text && line.text.trim())
             .map((line, idx) => 
@@ -6592,7 +6546,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
         const doc = pipWindow.document;
         const currentTime = Spicetify.Player.getProgress();
         
-        // Find active line
         let activeIdx = -1;
         const filteredLines = currentLyrics.lines.filter(l => l.text && l.text.trim());
         
@@ -6603,7 +6556,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
             }
         }
 
-        // Update classes
         const lyrics = doc.querySelectorAll('.lyric');
         const isPlaying = Spicetify.Player.isPlaying();
         
@@ -6612,7 +6564,6 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
             
             if (idx === activeIdx) {
                 el.classList.add('active');
-                // Only auto-scroll when playing, allow free scroll when paused
                 if (isPlaying) {
                     el.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
@@ -6647,14 +6598,12 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
         }, CONFIG.updateInterval);
     }
 
-    // ==================== UTILITIES ====================
     function escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
     }
 
-// ==================== TOPBAR BUTTON ====================
     function createButton() {
         if (window.lyricMiniplayerButtonLoaded) {
             return; 
@@ -6675,7 +6624,7 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
         }
     }
 
-    // ==================== EVENT LISTENERS ====================
+    // EVENT LISTENERS 
     Spicetify.Player.addEventListener('songchange', () => {
         updatePipContent();
     });
@@ -6684,14 +6633,12 @@ Slot id: ${t}.`),retryCounter(t,"clear");return}setTimeout(m,1*1e3,e)}S()},w=asy
         updatePipPlayButton();
     });
 
-    // ==================== INIT ====================
     createButton();
     
     console.log('[Lyric Miniplayer] Ready!');
 
 })();
 
-// Sidebar Synchro
 function initAgSidebarState() {
     if (localStorage.getItem('ag-sidebar-brutal-disabled') === 'true') {
         document.body.classList.add("ag-hide-only-sidebar");
@@ -6717,3 +6664,848 @@ document.addEventListener("change", (e) => {
         }
     }
 });
+
+(function CustomHomeModule() {
+    async function injectCustomHome() {
+        const mainContainer = document.querySelector('section[data-testid="home-page"]');
+        if (!mainContainer || document.getElementById('custom-home-injected')) return;
+
+        const customUI = document.createElement('div');
+        customUI.id = 'custom-home-injected';
+        customUI.className = 'custom-home-container';
+        
+        customUI.innerHTML = `
+            <h1 class="custom-home-title">Your Playlists</h1>
+            <div class="playlist-folder-wrapper">
+                <div class="folder-item">
+                    <div class="folder-icon"></div>
+                </div>
+                <div class="playlist-list-horizontal" id="horizontal-playlists"></div>
+            </div>
+        `;
+
+        mainContainer.prepend(customUI);
+
+        const playlists = await Spicetify.Platform.RootlistAPI.getContents();
+        const listContainer = document.getElementById('horizontal-playlists');
+        
+        const limit = 6;
+        const items = playlists.items || [];
+
+        items.slice(0, limit).forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'playlist-card';
+            card.onclick = (e) => {
+                e.stopPropagation();
+                window.location.href = `spotify:playlist:${item.uri.split(':').pop()}`;
+            };
+
+            const hasImage = item.images && item.images.length > 0 && item.images[0].url;
+            const imageHtml = hasImage 
+                ? `<img src="${item.images[0].url}" class="playlist-card-img">`
+                : `<div class="playlist-card-placeholder"><svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg></div>`;
+
+            card.innerHTML = `
+                ${imageHtml}
+                <span class="playlist-card-name">${item.name}</span>
+            `;
+            listContainer.appendChild(card);
+        });
+
+        if (items.length > limit) {
+            const moreCard = document.createElement('div');
+            moreCard.className = 'playlist-card';
+            moreCard.innerHTML = `
+                <div style="font-size:30px; pointer-events:none; margin-bottom: 5px;">...</div>
+                <span style="pointer-events:none; font-weight: bold;">And More...</span>
+            `;
+            
+            moreCard.onclick = (e) => {
+                e.stopPropagation();
+                const agPlaylistsTrigger = document.querySelector('.ag-cluster-playlists');
+                
+                if (agPlaylistsTrigger) {
+                    agPlaylistsTrigger.click();
+                } else {
+                    window.location.href = 'spotify:collection:playlists';
+                }
+            };
+            listContainer.appendChild(moreCard);
+        }
+    }
+
+    setInterval(injectCustomHome, 1000); 
+})();
+
+(async function FinalStats() {
+    if (!window.Dexie) {
+        const s = document.createElement('script');
+        s.src = 'https://unpkg.com/dexie/dist/dexie.js';
+        document.head.appendChild(s);
+        await new Promise(r => s.onload = r);
+    }
+    const db = new Dexie("MyStatsDB");
+    db.version(2).stores({ history: "++id, artist, track, image, uri, album" });
+
+    const WRAPPER_ID = "stats-wrapper";
+
+    function getAccent() {
+        return getComputedStyle(document.documentElement).getPropertyValue('--spice-accent').trim() || '#1db954';
+    }
+
+    function mount() {
+        const home = document.querySelector('section[data-testid="home-page"]');
+        if (!home || document.getElementById(WRAPPER_ID)) return;
+        
+        const wrapper = document.createElement('div');
+        wrapper.id = WRAPPER_ID;
+        wrapper.innerHTML = `
+            <div class="stats-outer-header"><h1>Top Heavy Rotation</h1></div>
+            <div class="sp-plus-stats-container">
+                <div class="sp-plus-panel"><h2 class="sp-plus-header">Top Artists</h2><div class="sp-artists-grid" id="artists-grid"></div></div>
+                <div class="sp-plus-panel"><h2 class="sp-plus-header">Top Tracks</h2><div class="sp-tracks-list" id="tracks-list"></div></div>
+            </div>
+        `;
+        home.appendChild(wrapper);
+        render(); 
+    }
+
+    async function render() {
+        if (!document.getElementById(WRAPPER_ID)) return;
+
+        const data = await db.history.toArray();
+        if (!data.length) return;
+
+        const total = data.length;
+        const art = {}, trk = {}, img = {}, artUri = {}, trackUri = {}, alb = {};
+
+        for (const d of data) {
+            art[d.artist] = (art[d.artist] || 0) + 1;
+            trk[d.track] = (trk[d.track] || 0) + 1;
+            if (d.image && !img[d.track]) img[d.track] = d.image;
+            if (d.uri?.includes("artist")) artUri[d.artist] = d.uri;
+            if (d.uri?.includes("track")) trackUri[d.track] = d.uri;
+            if (d.album) alb[d.track] = d.album;
+        }
+
+        const accent = getAccent();
+        const topA = Object.entries(art).sort((a,b)=>b[1]-a[1]).slice(0,5);
+        const topT = Object.entries(trk).sort((a,b)=>b[1]-a[1]).slice(0,5);
+
+        const grid = document.getElementById('artists-grid');
+        const list = document.getElementById('tracks-list');
+        if (!grid || !list) return;
+
+        grid.innerHTML = topA.map(([name, count]) => `
+            <div class="sp-artist-col">
+                <div class="sp-bar-v"><div class="sp-bar-fill animate-bar" style="height:0px; background:${accent};" data-h="${(count/total)*220}"></div></div>
+                <div class="sp-artist-perc">${Math.round((count/total)*100)}%</div>
+                <div class="sp-artist-name clickable" data-uri="${artUri[name] || ''}">${name}</div>
+            </div>
+        `).join('');
+
+        list.innerHTML = topT.map(([name, count], i) => `
+            <div class="sp-track-row">
+                <div class="sp-track-left clickable" data-uri="${trackUri[name] || ''}">
+                    <span style="color:#aaa; font-size:12px; min-width:20px;">${i + 1}.</span>
+                    <div class="sp-track-cover">${img[name] ? `<img src="${img[name]}">` : ''}</div>
+                    <span class="sp-track-name">${name} <small style="display:block; opacity:0.6; font-size:10px;">${alb[name] || ''}</small></span>
+                </div>
+                <div class="sp-bar-h"><div class="sp-bar-fill-h animate-bar" style="width:0px; background:${accent};" data-w="${(count/total)*200}"></div></div>
+            </div>
+        `).join('');
+
+        requestAnimationFrame(() => {
+            document.querySelectorAll('.animate-bar').forEach(el => {
+                if (el.dataset.h) el.style.height = el.dataset.h + 'px';
+                if (el.dataset.w) el.style.width = el.dataset.w + 'px';
+            });
+        });
+
+        document.querySelectorAll('.clickable').forEach(el => {
+            el.onclick = (e) => {
+                e.stopPropagation();
+                const uri = el.getAttribute('data-uri');
+                if (uri) Spicetify.Platform.History.push(uri);
+            };
+        });
+    }
+
+    const observer = new MutationObserver(() => {
+        mount();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    Spicetify.Player.addEventListener("songchange", async () => {
+        const item = Spicetify.Player.data.item;
+        if (!item) return;
+        await db.history.add({
+            artist: item.artists?.[0].name,
+            track: item.name,
+            uri: item.uri,
+            image: item.album?.images?.[0]?.url,
+            album: item.album?.name || "Unknown"
+        });
+        if(item.artists?.[0]) {
+            await db.history.where('artist').equals(item.artists[0].name).modify({uri: item.artists[0].uri});
+        }
+        render();
+    });
+
+    mount(); 
+    window.refreshMyStats = render;
+})();
+
+/* --- CUSTOM WALLPAPER --- */
+(function() {
+    const defaultPrefs = {
+        enabled: false,
+        url: '',
+        blur: 0,
+        saturate: 100,
+        contrast: 100
+    };
+
+    function loadPrefs() {
+        const saved = localStorage.getItem('sp-plus-wallpaper-prefs');
+        return saved ? { ...defaultPrefs, ...JSON.parse(saved) } : defaultPrefs;
+    }
+
+    function savePrefs(prefs) {
+        localStorage.setItem('sp-plus-wallpaper-prefs', JSON.stringify(prefs));
+        applyWallpaperCSS(prefs);
+    }
+
+    const styleEl = document.createElement('style');
+    styleEl.textContent = `
+        #sp-plus-custom-bg {
+            position: fixed !important;
+            inset: 0 !important;
+            z-index: -5 !important;
+            pointer-events: none !important;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            display: none;
+            transition: filter 0.2s ease;
+        }
+        
+        /* Kluczowe animacje dla modala Wallpaper Settings */
+        @keyframes wpFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes wpScaleIn {
+            from { transform: scale(0.92); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        @keyframes wpFadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        @keyframes wpScaleOut {
+            from { transform: scale(1); opacity: 1; }
+            to { transform: scale(0.92); opacity: 0; }
+        }
+
+        .wp-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 999999 !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: wpFadeIn 0.25s ease forwards;
+        }
+        .wp-modal-overlay.wp-closing {
+            animation: wpFadeOut 0.2s ease forwards;
+        }
+        
+        .wp-modal-container {
+            background: #111622;
+            border-radius: 24px;
+            width: 520px;
+            padding: 28px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+            font-family: sans-serif;
+            position: relative;
+            animation: wpScaleIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        .wp-modal-overlay.wp-closing .wp-modal-container {
+            animation: wpScaleOut 0.2s ease forwards;
+        }
+
+        .wp-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .wp-modal-header h2 { 
+            margin: 0; 
+            font-size: 18px; 
+            font-weight: bold; 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px;
+            color: #e0e6ed;
+        }
+        .wp-modal-close { 
+            background: none; 
+            border: none; 
+            color: #707e94; 
+            cursor: pointer; 
+            font-size: 22px; 
+            transition: color 0.2s;
+        }
+        .wp-modal-close:hover { color: #ffffff; }
+        
+        .wp-option-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        .wp-option-label { 
+            font-size: 13px; 
+            font-weight: 600; 
+            color: #d1dbe8; 
+        }
+        
+        .wp-switch {
+            position: relative;
+            display: inline-block;
+            width: 42px;
+            height: 24px;
+        }
+        .wp-switch input { opacity: 0; width: 0; height: 0; }
+        .wp-slider {
+            position: absolute; cursor: pointer; inset: 0;
+            background-color: #2c3545; border-radius: 34px;
+            transition: .25s;
+        }
+        .wp-slider:before {
+            position: absolute; content: ""; height: 18px; width: 18px;
+            left: 3px; bottom: 3px; background-color: #ffffff;
+            border-radius: 50%; transition: .25s;
+        }
+        input:checked + .wp-slider { background-color: #4fa3cb; }
+        input:checked + .wp-slider:before { transform: translateX(18px); }
+        
+        .wp-input-text {
+            background: #182030;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px; 
+            color: #ffffff; 
+            padding: 8px 12px;
+            width: 240px; 
+            font-size: 13px;
+            transition: border-color 0.2s;
+        }
+        .wp-input-text:focus { outline: none; border-color: #4fa3cb; }
+        
+        .wp-range-container { display: flex; align-items: center; gap: 14px; }
+        .wp-input-range {
+            -webkit-appearance: none; 
+            width: 160px; 
+            background: #2c3545;
+            height: 6px; 
+            border-radius: 3px; 
+            outline: none;
+        }
+        .wp-input-range::-webkit-slider-thumb {
+            -webkit-appearance: none; 
+            width: 16px; 
+            height: 16px;
+            border-radius: 50%; 
+            background: #24b3dc; 
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(36, 179, 220, 0.5);
+        }
+        .wp-range-val { 
+            font-size: 13px; 
+            font-weight: bold; 
+            color: #ffffff; 
+            min-width: 40px; 
+            text-align: right; 
+        }
+
+        /* Styl dopasowany do przycisku "Change" z karty Layout */
+        .wp-native-style-btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border: none;
+            padding: 7px 18px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .wp-native-style-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .wp-native-style-btn:active {
+            transform: scale(0.97);
+        }
+    `;
+    document.head.appendChild(styleEl);
+
+    let bgDiv = document.getElementById('sp-plus-custom-bg');
+    if (!bgDiv) {
+        bgDiv = document.createElement('div');
+        bgDiv.id = 'sp-plus-custom-bg';
+        document.body.appendChild(bgDiv);
+    }
+
+    function applyWallpaperCSS(prefs) {
+        if (prefs.enabled && prefs.url) {
+            bgDiv.style.backgroundImage = `url('${prefs.url}')`;
+            bgDiv.style.filter = `blur(${prefs.blur}px) saturate(${prefs.saturate}%) contrast(${prefs.contrast}%)`;
+            bgDiv.style.display = 'block';
+            document.documentElement.style.setProperty('--main-view-background-color', 'transparent');
+        } else {
+            bgDiv.style.display = 'none';
+        }
+    }
+
+    applyWallpaperCSS(loadPrefs());
+
+    function closeThemeSettings() {
+        const nativeCloseBtn = document.getElementById('ag-settings-close');
+        if (nativeCloseBtn) {
+            nativeCloseBtn.click();
+            return;
+        }
+        const themeSettingsModal = document.querySelector('.ag-settings-wrapper');
+        if (themeSettingsModal) themeSettingsModal.remove();
+    }
+
+    function openWallpaperModal() {
+        if (document.getElementById('wp-settings-modal')) return;
+        
+        closeThemeSettings();
+
+        const prefs = loadPrefs();
+        const overlay = document.createElement('div');
+        overlay.id = 'wp-settings-modal';
+        overlay.className = 'wp-modal-overlay';
+        overlay.innerHTML = `
+            <div class="wp-modal-container">
+                <div class="wp-modal-header">
+                    <h2>Wallpaper Settings</h2>
+                    <button class="wp-modal-close" id="wp-close-btn">&times;</button>
+                </div>
+                
+                <div class="wp-option-card">
+                    <span class="wp-option-label">Enable Custom Wallpaper</span>
+                    <label class="wp-switch">
+                        <input type="checkbox" id="wp-toggle-enabled" ${prefs.enabled ? 'checked' : ''}>
+                        <span class="wp-slider"></span>
+                    </label>
+                </div>
+                
+                <div class="wp-option-card">
+                    <span class="wp-option-label">Imgur / Image URL</span>
+                    <input type="text" id="wp-url-input" class="wp-input-text" placeholder="https://i.imgur.com/..." value="${prefs.url}">
+                </div>
+                
+                <div class="wp-option-card">
+                    <span class="wp-option-label">Blur Effect</span>
+                    <div class="wp-range-container">
+                        <input type="range" id="wp-blur-input" class="wp-input-range" min="0" max="100" value="${prefs.blur}">
+                        <span class="wp-range-val" id="wp-blur-val">${prefs.blur}%</span>
+                    </div>
+                </div>
+                
+                <div class="wp-option-card">
+                    <span class="wp-option-label">Saturation</span>
+                    <div class="wp-range-container">
+                        <input type="range" id="wp-saturate-input" class="wp-input-range" min="0" max="200" value="${prefs.saturate}">
+                        <span class="wp-range-val" id="wp-saturate-val">${prefs.saturate}%</span>
+                    </div>
+                </div>
+                
+                <div class="wp-option-card">
+                    <span class="wp-option-label">Contrast</span>
+                    <div class="wp-range-container">
+                        <input type="range" id="wp-contrast-input" class="wp-input-range" min="50" max="150" value="${prefs.contrast}">
+                        <span class="wp-range-val" id="wp-contrast-val">${prefs.contrast}%</span>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(overlay);
+
+        const closeBtn = document.getElementById('wp-close-btn');
+        const toggleEnabled = document.getElementById('wp-toggle-enabled');
+        const urlInput = document.getElementById('wp-url-input');
+        const blurInput = document.getElementById('wp-blur-input');
+        const saturateInput = document.getElementById('wp-saturate-input');
+        const contrastInput = document.getElementById('wp-contrast-input');
+
+        const blurVal = document.getElementById('wp-blur-val');
+        const saturateVal = document.getElementById('wp-saturate-val');
+        const contrastVal = document.getElementById('wp-contrast-val');
+
+        function updateAndSave() {
+            const newPrefs = {
+                enabled: toggleEnabled.checked,
+                url: urlInput.value.trim(),
+                blur: parseInt(blurInput.value),
+                saturate: parseInt(saturateInput.value),
+                contrast: parseInt(contrastInput.value)
+            };
+            savePrefs(newPrefs);
+        }
+
+        toggleEnabled.onchange = updateAndSave;
+        urlInput.oninput = updateAndSave;
+        
+        blurInput.oninput = () => { blurVal.textContent = blurInput.value + '%'; updateAndSave(); };
+        saturateInput.oninput = () => { saturateVal.textContent = saturateInput.value + '%'; updateAndSave(); };
+        contrastInput.oninput = () => { contrastVal.textContent = contrastInput.value + '%'; updateAndSave(); };
+
+        function handleClose() {
+            overlay.classList.add('wp-closing');
+            overlay.addEventListener('animationend', (e) => {
+                if (e.animationName === 'wpFadeOut') {
+                    overlay.remove();
+                }
+            });
+        }
+
+        closeBtn.onclick = handleClose;
+        overlay.onclick = (e) => { if (e.target === overlay) handleClose(); };
+    }
+
+    const menuObserver = new MutationObserver(() => {
+        const sidebarCheckbox = document.getElementById('ag-sidebar-toggle-checkbox');
+        if (!sidebarCheckbox) return;
+
+        if (document.getElementById('sp-plus-injected-wallpaper-row')) return;
+
+        const sidebarRow = sidebarCheckbox.closest('.ag-setting-item');
+        if (sidebarRow) {
+            const newRow = document.createElement('div');
+            newRow.id = 'sp-plus-injected-wallpaper-row';
+            newRow.className = 'ag-setting-item'; 
+            newRow.innerHTML = `
+                <span class="ag-setting-label"><label>Custom Wallpaper</label></span>
+                <button id="sp-plus-open-wp-modal" class="wp-native-style-btn" type="button">Change</button>
+            `;
+            
+            sidebarRow.parentNode.insertBefore(newRow, sidebarRow.nextSibling);
+
+            document.getElementById('sp-plus-open-wp-modal').onclick = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                openWallpaperModal();
+            };
+        }
+    });
+
+    menuObserver.observe(document.body, { childList: true, subtree: true });
+})();
+
+(function() {
+    const THEMES = {
+        spotify: { name: 'Spotify', emoji: '💚', accent: '#1ed760', ambientColor: '#1ed760', nowPlayingBg: '#0b1f11', clusterGlow: '#1ed760', liked: '#1ed760', albums: '#1ed760', playlists: '#1ed760', artists: '#1ed760', s1: '#0f3a1c', s2: '#071f0e' },
+        pink: { name: 'Pink Pop', emoji: '💖', accent: '#ff69b4', ambientColor: '#ff69b4', nowPlayingBg: '#240f1a', clusterGlow: '#ff69b4', liked: '#ff69b4', albums: '#ff69b4', playlists: '#ff69b4', artists: '#ff69b4', s1: '#3d122b', s2: '#210515' },
+        kawaii: { name: 'Kawaii', emoji: '🌸', accent: '#ffb7dd', ambientColor: '#ffb7dd', nowPlayingBg: '#24141f', clusterGlow: '#ffb7dd', liked: '#ffb7dd', albums: '#ffb7dd', playlists: '#ffb7dd', artists: '#ffb7dd', s1: '#3a2035', s2: '#201020' },
+        ocean: { name: 'Ocean Blue', emoji: '🌊', accent: '#00bfff', ambientColor: '#00bfff', nowPlayingBg: '#051624', clusterGlow: '#00bfff', liked: '#00bfff', albums: '#00bfff', playlists: '#00bfff', artists: '#00bfff', s1: '#0a2540', s2: '#051425' },
+        racing: { name: 'Racing Red', emoji: '🏎️', accent: '#ff3333', ambientColor: '#ff3333', nowPlayingBg: '#210707', clusterGlow: '#ff3333', liked: '#ff3333', albums: '#ff3333', playlists: '#ff3333', artists: '#ff3333', s1: '#3a0808', s2: '#1f0303' },
+        sunset: { name: 'Sunset', emoji: '🌅', accent: '#ff6b35', ambientColor: '#ff6b35', nowPlayingBg: '#210f08', clusterGlow: '#ff6b35', liked: '#ff6b35', albums: '#ff6b35', playlists: '#ff6b35', artists: '#ff6b35', s1: '#3d1a08', s2: '#240f03' },
+        purple: { name: 'Galaxy', emoji: '🔮', accent: '#a855f7', ambientColor: '#a855f7', nowPlayingBg: '#160b24', clusterGlow: '#a855f7', liked: '#a855f7', albums: '#a855f7', playlists: '#a855f7', artists: '#a855f7', s1: '#25123e', s2: '#140725' },
+        mint: { name: 'Mint Fresh', emoji: '🍃', accent: '#2dd4bf', ambientColor: '#2dd4bf', nowPlayingBg: '#071f1b', clusterGlow: '#2dd4bf', liked: '#2dd4bf', albums: '#2dd4bf', playlists: '#2dd4bf', artists: '#2dd4bf', s1: '#0c352e', s2: '#051c18' },
+        gold: { name: 'Luxury Gold', emoji: '👑', accent: '#fbbf24', ambientColor: '#fbbf24', nowPlayingBg: '#211a07', clusterGlow: '#fbbf24', liked: '#fbbf24', albums: '#fbbf24', playlists: '#fbbf24', artists: '#fbbf24', s1: '#3a2b08', s2: '#1f1603' },
+        cyberpunk: { name: 'Cyberpunk', emoji: '🤖', accent: '#ff00ff', ambientColor: '#ff00ff', nowPlayingBg: '#210721', clusterGlow: '#ff00ff', liked: '#ff00ff', albums: '#ff00ff', playlists: '#ff00ff', artists: '#ff00ff', s1: '#3a003a', s2: '#1f001f' },
+        snow: { name: 'Frost', emoji: '❄️', accent: '#7dd3fc', ambientColor: '#7dd3fc', nowPlayingBg: '#0f1a24', clusterGlow: '#7dd3fc', liked: '#7dd3fc', albums: '#7dd3fc', playlists: '#7dd3fc', artists: '#7dd3fc', s1: '#162b40', s2: '#0b1625' },
+        rose: { name: 'Rose Gold', emoji: '🌹', accent: '#f43f5e', ambientColor: '#f43f5e', nowPlayingBg: '#240a10', clusterGlow: '#f43f5e', liked: '#f43f5e', albums: '#f43f5e', playlists: '#f43f5e', artists: '#f43f5e', s1: '#3e101b', s2: '#24050d' }
+    };
+
+    function injectPresets() {
+        const layoutTab = document.querySelector('#tab-layout');
+        if (!layoutTab || document.getElementById('tp-preset-grid')) return;
+
+        const gridWrapper = document.createElement('div');
+        gridWrapper.id = 'tp-preset-grid';
+        
+        gridWrapper.style.cssText = `
+            grid-column: 1 / -1 !important;
+
+            display: grid !important;
+
+            grid-template-columns: repeat(6, 1fr) !important;
+
+            gap: 12px !important;
+
+            width: 100% !important;
+
+            margin-top: 20px !important;
+        `;
+        
+gridWrapper.innerHTML = `
+<style>
+
+#tp-preset-grid {
+    position: relative;
+}
+
+.tp-btn {
+
+    position: relative;
+
+    width: 100% !important;
+    height: 84px !important;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.05),
+            rgba(255,255,255,.015)
+        ) !important;
+
+    border: 1px solid rgba(255,255,255,.08) !important;
+
+    border-radius: 12px !important;
+
+    color: white !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    justify-content: center !important;
+    align-items: center !important;
+
+    gap: 6px !important;
+
+    cursor: pointer !important;
+
+    overflow: hidden !important;
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease !important;
+}
+
+.tp-btn::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(255,255,255,.08),
+            transparent 70%
+        );
+
+    opacity: 0;
+
+    transition: opacity .25s ease;
+}
+
+.tp-btn:hover {
+
+    transform:
+        translateY(-4px)
+        scale(1.03) !important;
+
+    border-color: var(--hover-color) !important;
+
+    box-shadow:
+        0 0 20px color-mix(in srgb, var(--hover-color) 45%, transparent),
+        0 0 40px color-mix(in srgb, var(--hover-color) 20%, transparent) !important;
+}
+
+.tp-btn:hover::before {
+    opacity: 1;
+}
+
+.tp-btn:active {
+
+    transform:
+        translateY(-1px)
+        scale(.98) !important;
+}
+
+.tp-emoji {
+
+    font-size: 24px !important;
+
+    line-height: 1 !important;
+
+    filter:
+        drop-shadow(0 0 8px rgba(255,255,255,.15));
+}
+
+.tp-name {
+
+    font-size: 11px !important;
+
+    font-weight: 700 !important;
+
+    text-align: center !important;
+
+    letter-spacing: .2px !important;
+
+    opacity: .95;
+}
+
+</style>
+`;
+
+        Object.values(THEMES).forEach(theme => {
+            const btn = document.createElement('button');
+            btn.className = 'tp-btn';
+            btn.style.setProperty('--hover-color', theme.accent);
+            btn.innerHTML = `
+                <span class="tp-emoji">${theme.emoji}</span>
+                <span class="tp-name">${theme.name}</span>
+            `;
+            
+            btn.onclick = () => {
+                const mapping = {
+                    'ag-col-glow': theme.ambientColor, 'ag-col-accent': theme.accent,
+                    'ag-col-now_color': theme.nowPlayingBg, 'ag-col-home': theme.clusterGlow,
+                    'ag-col-liked': theme.liked, 'ag-col-albums': theme.albums,
+                    'ag-col-playlists': theme.playlists, 'ag-col-artists': theme.artists,
+                    'ag-col-s1': theme.s1, 'ag-col-s2': theme.s2
+                };
+
+                Object.keys(mapping).forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) { el.value = mapping[id]; el.dispatchEvent(new Event('input', { bubbles: true })); }
+                });
+
+                document.getElementById('ag-save-settings')?.click();
+                if (window.refreshMyStats) window.refreshMyStats();
+            };
+            gridWrapper.appendChild(btn);
+        });
+
+        layoutTab.appendChild(gridWrapper);
+    }
+
+    const observer = new MutationObserver(() => injectPresets());
+    observer.observe(document.body, { childList: true, subtree: true });
+})();
+
+const observerReset = new MutationObserver(() => {
+    const resetButton = document.getElementById('ag-reset-settings');
+    if (resetButton && !resetButton.dataset.hasListener) {
+        resetButton.addEventListener('click', () => {
+            setTimeout(() => {
+                if (window.refreshMyStats) {
+                    window.refreshMyStats();
+                }
+            }, 200);
+        });
+        resetButton.dataset.hasListener = "true"; 
+    }
+});
+
+observerReset.observe(document.body, { childList: true, subtree: true });
+
+(function() {
+    function updateDynamicGlow() {
+        const accentInput = document.getElementById('ag-col-accent');
+        if (!accentInput) return;
+
+        const hexColor = accentInput.value;
+
+        const dynamicGlow = `color-mix(in srgb, ${hexColor} 40%, transparent)`;
+        const trackBg = `color-mix(in srgb, ${hexColor} 20%, #1a1a1a)`;
+
+        document.documentElement.style.setProperty('--ag-custom-accent', hexColor);
+        document.documentElement.style.setProperty('--ag-custom-glow', dynamicGlow);
+        document.documentElement.style.setProperty('--ag-custom-track', trackBg);
+    }
+
+    const style = document.createElement('style');
+    style.id = 'ag-precise-glow-styles';
+    style.innerHTML = `
+        #ag-settings-panel input[type="range"] {
+            -webkit-appearance: none !important;
+            appearance: none !important;
+            background: var(--ag-custom-track) !important;
+            height: 6px !important;
+            border-radius: 3px !important;
+        }
+
+        #ag-settings-panel input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none !important;
+            appearance: none !important;
+            width: 14px !important;
+            height: 14px !important;
+            border-radius: 50% !important;
+            background: var(--ag-custom-accent) !important;
+            border: 2px solid var(--ag-custom-accent) !important;
+            cursor: pointer !important;
+            transition: transform 0.1s ease !important;
+        }
+        
+        #ag-settings-panel input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2) !important;
+        }
+
+        #ag-settings-panel button[id^="ag-change-"],
+        #ag-settings-panel button[id*="layout"],
+        #ag-settings-panel .ag-layout-change-setting button,
+        #ag-settings-panel button:not(#ag-reset-settings)[style*="background"] {
+            background-color: var(--ag-custom-accent) !important;
+            border-color: var(--ag-custom-accent) !important;
+            color: #fff !important;
+        }
+
+        #ag-settings-panel input[type="checkbox"]:checked + .slider,
+        #ag-settings-panel .ag-switch input:checked + .ag-slider-round,
+        #ag-settings-panel input:checked + [class*="slider"] {
+            background-color: var(--ag-custom-accent) !important;
+            box-shadow: 0 0 10px var(--ag-custom-glow) !important;
+        }
+        
+        #ag-settings-panel input[type="text"]:focus,
+        #ag-settings-panel select:focus {
+            border-color: var(--ag-custom-accent) !important;
+            box-shadow: 0 0 8px var(--ag-custom-glow) !important;
+        }
+
+        #ag-settings-panel button[id*="save"],
+        #ag-settings-panel .ag-btn-save {
+            box-shadow: 0 4px 15px var(--ag-custom-glow) !important;
+        }
+    `;
+
+    if (!document.getElementById('ag-precise-glow-styles')) {
+        document.head.appendChild(style);
+    }
+
+    const glowObserver = new MutationObserver(() => {
+        const accentInput = document.getElementById('ag-col-accent');
+        if (accentInput && !accentInput.dataset.glowHooked) {
+            accentInput.dataset.glowHooked = "true";
+            updateDynamicGlow();
+            accentInput.addEventListener('input', updateDynamicGlow);
+            accentInput.addEventListener('change', updateDynamicGlow);
+        }
+    });
+
+    glowObserver.observe(document.body, { childList: true, subtree: true });
+
+    window.addEventListener('click', (e) => {
+        if (e.target.closest('.tp-btn') || e.target.closest('#ag-reset-settings')) {
+            setTimeout(updateDynamicGlow, 150);
+        }
+    });
+})();
