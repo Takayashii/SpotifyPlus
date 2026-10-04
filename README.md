@@ -1,5 +1,6 @@
 <div align="center">
   <h1>Spotify+ | The Ultimate Experience</h1>
+  <h2>Project is Outdated</h2>
   <p><i>A state-of-the-art Spicetify theme inspired by modern glassmorphism and Apple-style aesthetics.</i></p>
 
   [![Spicetify](https://img.shields.io/badge/Spicetify-Theme-success?style=for-the-badge&logo=spotify)](#)
